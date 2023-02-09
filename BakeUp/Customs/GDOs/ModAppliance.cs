@@ -6,12 +6,23 @@ namespace KitchenBakeUp.Customs
 {
     public abstract class ModAppliance : CustomAppliance
     {
-        public struct VariableApplianceProcess
+        public abstract override string UniqueNameID { get; }
+
+        private bool GameDataBuilt = false;
+
+        public virtual List<(Locale, ApplianceInfo)> InfoList { get; protected set; }
+
+        public override sealed void OnRegister(GameDataObject gdo)
         {
-            public ItemList Items;
-            public List<Appliance.ApplianceProcesses> Processes;
+            gdo.name = $"BakeUp - {UniqueNameID}";
+
+            if (GameDataBuilt)
+            {
+                return;
+            }
+
+            Modify(gdo as Appliance);
         }
-        public virtual IDictionary<Locale, ApplianceInfo> InfoList { get; internal set; }
-        public virtual List<VariableApplianceProcess> VariableApplianceProcesses { get; internal set; }
+        public virtual void Modify(Appliance appliance) { }
     }
 }

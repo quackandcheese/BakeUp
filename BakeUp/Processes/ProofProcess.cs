@@ -30,7 +30,7 @@ namespace KitchenBakeUp.Processes
                 var info = new LocalisationObject<ProcessInfo>();
 
                 // Note: for testing, I recommend setting "my_custom_icon" to "knead" for now until we add the custom icon
-                info.Add(Locale.English, LocalisationUtils.CreateProcessInfo("My Process", "my_custom_icon"));
+                info.Add(Locale.English, LocalisationUtils.CreateProcessInfo("Proof", "knead"));
 
                 return info;
             }

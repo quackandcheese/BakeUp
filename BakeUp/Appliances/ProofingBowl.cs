@@ -10,25 +10,31 @@ using KitchenLib.Utils;
 using UnityEngine;
 using Kitchen;
 using KitchenBakeUp.Processes;
+using KitchenBakeUp.Utils;
 
 namespace KitchenBakeUp.Appliances
 {
-    public class ProofingBowl : ModAppliance
+    public class ProofingBowl : CustomAppliance
     {
         public override string UniqueNameID => "ProofingBowl";
-        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Proofing Bowl");
+        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("ProofingBowl");
         public override PriceTier PriceTier => PriceTier.Medium;
         public override bool SellOnlyAsDuplicate => true;
         public override bool IsPurchasable => true;
         public override ShoppingTags ShoppingTags => ShoppingTags.Cooking | ShoppingTags.Misc;
-        public override IDictionary<Locale, ApplianceInfo> InfoList => new Dictionary<Locale, ApplianceInfo>()
+        public override List<(Locale, ApplianceInfo)> InfoList => new()
         {
-            { Locale.English, LocalisationUtils.CreateApplianceInfo("Proofing Bowl", "Good for rising dough", new(), new()) }
+            ( Locale.English, LocalisationUtils.CreateApplianceInfo("Proofing Bowl", "Good for rising dough", new(), new()) )
         };
 
         public override List<IApplianceProperty> Properties => new()
         {
-            new CItemHolder()
+            new CItemHolder(),
+            new CRestrictProgressVisibility()
+            {
+                ObfuscateWhenActive = true,
+                ObfuscateWhenInactive = true,
+            }
         };
 
 
@@ -44,5 +50,22 @@ namespace KitchenBakeUp.Appliances
             // ...
         };
 
+        public override void OnRegister(GameDataObject gameDataObject)
+        {
+            var bowl = Prefab.GetChild("Bowl");
+            var counter = bowl.GetChild("Base_L_Counter.blend");
+
+            // Visuals
+            bowl.ApplyMaterialToChild("Bowl.001", "Mayonnaise", "Flour");
+            bowl.ApplyMaterialToChild("Cloth", "Paper - White");
+            bowl.ApplyMaterialToChild("Top", "Wood - Default");
+
+            counter.ApplyMaterial("Wood 4 - Painted", "Wood - Default");
+            counter.ApplyMaterialToChild("Handle_L_Counter.blend", "Knob");
+
+            var holdTransform = Prefab.GetChildFromPath("HoldPoint").transform;
+            var holdPoint = Prefab.AddComponent<HoldPointContainer>();
+            holdPoint.HoldPoint = holdTransform;
+        }
     }
 }

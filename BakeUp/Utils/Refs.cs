@@ -1,4 +1,5 @@
-﻿using KitchenData;
+﻿using KitchenBakeUp.Mains.Pretzel_Bread;
+using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.References;
 using KitchenLib.Utils;
@@ -34,6 +35,7 @@ namespace KitchenBakeUp
 
         #region Modded References
         // Items
+        public static Item ProofedDough => Find<Item, ProofedDough>();
 
         // Process
         public static Process ProofProcess => Find<Process, Processes.ProofProcess>();

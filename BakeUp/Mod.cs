@@ -1,6 +1,13 @@
-﻿using KitchenLib;
+﻿using KitchenBakeUp.Appliances;
+using KitchenBakeUp.Mains.Pretzel_Bread;
+using KitchenBakeUp.Processes;
+using KitchenData;
+using KitchenLib;
 using KitchenLib.Event;
+using KitchenLib.References;
+using KitchenLib.Utils;
 using KitchenMods;
+using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -42,7 +49,9 @@ namespace KitchenBakeUp
         {
             LogInfo("Attempting to register game data...");
 
-            // AddGameDataObject<MyCustomGDO>();
+            AddGameDataObject<ProofedDough>();
+            AddGameDataObject<ProofProcess>();
+            AddGameDataObject<ProofingBowl>();
 
             LogInfo("Done loading game data.");
         }
@@ -66,6 +75,13 @@ namespace KitchenBakeUp
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
+                Item dough = Refs.Dough;
+                dough.DerivedProcesses.Add(new Item.ItemProcess()
+                {
+                    Process = Refs.ProofProcess,         // see above for descriptions of these fields
+                    Result = Refs.ProofedDough,
+                    Duration = 1
+                });
             };
         }
         #region Logging
