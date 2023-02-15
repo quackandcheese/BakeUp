@@ -32,8 +32,10 @@ namespace KitchenBakeUp.Appliances
             new CItemHolder(),
             new CRestrictProgressVisibility()
             {
+                HideWhenActive = false,
+                HideWhenInactive = false,
                 ObfuscateWhenActive = true,
-                ObfuscateWhenInactive = true,
+                ObfuscateWhenInactive = true
             }
         };
 
@@ -43,9 +45,10 @@ namespace KitchenBakeUp.Appliances
             // ...
             new Appliance.ApplianceProcesses()
             {
-                Process = Refs.ProofProcess,  // reference to the base process
-                Speed = 1,                                              // the speed multiplier when using this appliance (for reference, starter = 0.75, base = 1, danger hob/oven = 2)
-                IsAutomatic = true                                      // (optional) whether the process is automatic on this appliance
+                Process = GDOUtils.GetCastedGDO<Process, ProofProcess>(),  // reference to the base process
+                Speed = 1f,                                              // the speed multiplier when using this appliance (for reference, starter = 0.75, base = 1, danger hob/oven = 2)
+                IsAutomatic = true,
+                Validity = ProcessValidity.Generic                      // (optional) whether the process is automatic on this appliance
             }
             // ...
         };

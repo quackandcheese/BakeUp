@@ -1,10 +1,8 @@
-﻿using KitchenBakeUp.Mains.Pretzel_Bread;
+﻿using KitchenBakeUp.Mains;
 using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.References;
 using KitchenLib.Utils;
-using KitchenSoupsPlus.ChickenNoodleSoup;
-using KitchenSoupsPlus.FrenchOnionSoup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +34,19 @@ namespace KitchenBakeUp
         #region Modded References
         // Items
         public static Item ProofedDough => Find<Item, ProofedDough>();
+        public static Item BoiledProofedDough => Find<Item, BoiledProofedDough>();
+        public static Item ProofedDoughPotCooked => Find<Item, ProofedDoughPotCooked>();
+        public static ItemGroup ProofedDoughPot => Find<ItemGroup, ProofedDoughPot>();
+        public static Item PretzelBread => Find<Item, PretzelBread>();
 
         // Process
-        public static Process ProofProcess => Find<Process, Processes.ProofProcess>();
+        public static Process Proof => Find<Process, Processes.ProofProcess>();
 
         // Appliance
         public static Appliance ProofingBowl => Find<Appliance, Appliances.ProofingBowl>();
 
         // Cards
+        public static Dish PretzelBreadDish => Find<Dish, PretzelBreadDish>();
         #endregion
 
 

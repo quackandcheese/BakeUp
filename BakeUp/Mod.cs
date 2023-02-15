@@ -1,5 +1,5 @@
 ﻿using KitchenBakeUp.Appliances;
-using KitchenBakeUp.Mains.Pretzel_Bread;
+using KitchenBakeUp.Mains;
 using KitchenBakeUp.Processes;
 using KitchenData;
 using KitchenLib;
@@ -27,7 +27,7 @@ namespace KitchenBakeUp
         public const string MOD_GAMEVERSION = ">=1.1.3";
         // Game version this mod is designed for in semver
         // e.g. ">=1.1.3" current and all future
-        // e.g. ">=1.1.3 <=1.2.3" for all from/until
+        // e.g. ">=1.1.3 <=1.2.3" for all from/untill
 
         // Boolean constant whose value depends on whether you built with DEBUG or RELEASE mode, useful for testing
 #if DEBUG
@@ -49,9 +49,15 @@ namespace KitchenBakeUp
         {
             LogInfo("Attempting to register game data...");
 
-            AddGameDataObject<ProofedDough>();
+            // Pretzel Bread
             AddGameDataObject<ProofProcess>();
             AddGameDataObject<ProofingBowl>();
+            AddGameDataObject<ProofedDough>();
+            AddGameDataObject<BoiledProofedDough>();
+            AddGameDataObject<PretzelBread>();
+            AddGameDataObject<PretzelBreadDish>();
+            AddGameDataObject<ProofedDoughPot>();
+            AddGameDataObject<ProofedDoughPotCooked>();
 
             LogInfo("Done loading game data.");
         }
@@ -75,12 +81,11 @@ namespace KitchenBakeUp
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
-                Item dough = Refs.Dough;
-                dough.DerivedProcesses.Add(new Item.ItemProcess()
+                Refs.Dough.DerivedProcesses.Add(new Item.ItemProcess()
                 {
-                    Process = Refs.ProofProcess,         // see above for descriptions of these fields
+                    Process = Refs.Proof,         // see above for descriptions of these fields
                     Result = Refs.ProofedDough,
-                    Duration = 1
+                    Duration = 5f
                 });
             };
         }

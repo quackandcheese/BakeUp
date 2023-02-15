@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using KitchenLib.Customs;
 using KitchenBakeUp.Utils;
+using KitchenLib.Utils;
 
-namespace KitchenBakeUp.Mains.Pretzel_Bread
+namespace KitchenBakeUp.Mains
 {
     class ProofedDough : CustomItem
     {
@@ -22,7 +23,7 @@ namespace KitchenBakeUp.Mains.Pretzel_Bread
 
         public override void OnRegister(GameDataObject gameDataObject)
         {
-            Prefab.ApplyMaterial("Raw Pastry");
+            Prefab.GetChild("Bread.004").ApplyMaterial("Raw Pastry");
         }
     }
 }
